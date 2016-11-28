@@ -1,0 +1,20 @@
+[zuul]
+
+[merger]
+git_dir=/git
+zuul_url=http://172.17.0.6/p
+git_user_email=zuul@example.com
+get_user_name=Zull
+
+[gearman]
+server=172.17.0.4
+
+[connection gerrit]
+driver=gerrit
+server=172.17.0.3
+port=29418
+baseurl=http://172.17.0.3:8080/
+user=zuul
+sshkey=/etc/zuul/ssh/id_rsa
+
+
