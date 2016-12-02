@@ -1,10 +1,6 @@
 [zuul]
 layout_config=/etc/zuul/layout.yaml
 
-[merger]
-git_dir=/git
-zuul_url=http://172.17.0.6/p
-
 [gearman_server]
 start=true
 
