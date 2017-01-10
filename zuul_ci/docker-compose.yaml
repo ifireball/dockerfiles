@@ -1,0 +1,33 @@
+version: '2'
+services:
+  squid:
+    build:
+      context: ./squid
+    ports:
+      - "3128:3128"
+  jenkins:
+    hostname: jenkins.zuul.example.com
+    build:
+      context: ./jenkins
+    environment:
+      JENKINS_PASSWORD: admin
+    expose:
+      - "8080"
+    volumes:
+      - /var/lib/jenkins
+    networks:
+      default:
+        aliases:
+          - 'jenkins.zuul.example.com'
+  gerrit:
+    image: docker.io/fabric8/gerrit:latest
+    environment:
+      AUTH_TYPE: 'DEVELOPMENT_BECOME_ANY_ACCOUNT'
+    volumes:
+      - /home/gerrit/site
+      - /home/gerrit/ssh-keys
+    networks:
+      default:
+        aliases:
+          - 'gerrit.zuul.example.com'
+
