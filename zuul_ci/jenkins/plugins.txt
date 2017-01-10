@@ -1,3 +1,4 @@
 gearman-plugin:0.2.0
 gerrit-trigger:2.22.0
 shiningpanda:0.23
+blueocean:1.0.0-b14
