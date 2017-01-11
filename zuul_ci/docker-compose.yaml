@@ -1,4 +1,6 @@
 version: '2'
+volumes:
+  ssh-keys: {}
 services:
   squid:
     build:
@@ -20,12 +22,23 @@ services:
         aliases:
           - 'jenkins.zuul.example.com'
   gerrit:
-    image: docker.io/fabric8/gerrit:latest
+    build:
+      context: ./gerrit
     environment:
       AUTH_TYPE: 'DEVELOPMENT_BECOME_ANY_ACCOUNT'
+      GERRIT_ADMIN_USER: 'admin'
+      GERRIT_ADMIN_EMAIL: 'admin@example.com'
+      GERRIT_ADMIN_FULLNAME: 'Administrator'
+      GERRIT_ADMIN_PWD: 'admin'
+      GERRIT_ADMIN_PRIVATE_KEY: '/home/gerrit/ssh-keys/id_admin_rsa'
+      GERRIT_ADMIN_PRIVATE_KEY_PASSWORD: ''
+      GERRIT_ACCOUNTS: "\
+        jenkins,Jenkins,jenkins@example.com,jenkins1,Non-Interactive Users;\
+        zuul,Zuul,zuul@example.com,zuul1,Non-Interactive Users"
+      GERRIT_PUBLIC_KEYS_PATH: /home/gerrit/ssh-keys
     volumes:
       - /home/gerrit/site
-      - /home/gerrit/ssh-keys
+      - ssh-keys:/home/gerrit/ssh-keys:z
     networks:
       default:
         aliases:
