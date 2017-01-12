@@ -43,4 +43,23 @@ services:
       default:
         aliases:
           - 'gerrit.zuul.example.com'
+  zuul_server:
+    build:
+      context: ./zuul_server
+    depends_on:
+      - gerrit
+    environment:
+      GERRIT_SERVER: 'gerrit.zuul.example.com'
+      GERRIT_BASEURL: 'http://gerrit.zuul.example.com:8080'
+      GERRIT_USER: 'zuul'
+      GERRIT_SSH_KEY: '/etc/zuul/ssh/id_zuul_rsa'
+    volumes:
+      - /etc/zuul/layout
+      - ssh-keys:/etc/zuul/ssh:z
+    networks:
+      default:
+        aliases:
+          - 'zuul_server.zuul.example.com'
+          - 'gearman'
+          - 'gearman.zuul.example.com'
 

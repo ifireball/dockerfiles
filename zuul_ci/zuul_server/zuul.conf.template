@@ -1,17 +1,17 @@
 [zuul]
-layout_config=/etc/zuul/layout.yaml
+layout_config=/etc/zuul/layout/layout.yaml
 
 [gearman_server]
 start=true
 
 [gearman]
-server=172.17.0.4
+server=127.0.0.1
 
 [connection gerrit]
 driver=gerrit
-server=172.17.0.3
-port=29418
-baseurl=http://172.17.0.3:8080/
-user=zuul
-sshkey=/etc/zuul/ssh/id_rsa
+server=__GERRIT_SERVER__
+port=__GERRIT_PORT__
+baseurl=__GERRIT_BASEURL__
+user=__GERRIT_USER__
+sshkey=__GERRIT_SSH_KEY__
 
